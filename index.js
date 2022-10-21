@@ -16,12 +16,18 @@ const puppeteer = require("puppeteer");
   await page.waitForSelector("#productView");
 
   let data = await page.evaluate(() => {
-    let pagName = document.querySelector(
-      ".desc_text>a"
-    ).textContent;
+    let products = [];
+
+    $(".productView")
+      .children()
+      .each(() => {
+        let name = document.querySelector(".desc_text>a").textContent;
+        products.push(name);
+      });
+   
 
     return {
-      pagName,
+      name,
     };
   });
     console.log(data);
